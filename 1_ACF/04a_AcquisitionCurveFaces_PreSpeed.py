@@ -5,9 +5,9 @@
 @date: 2014-07-15
 '''
 
-#TODO: will there be chinese pictures? yes!
-#TODO: Practice Liste brauch ich noch
-#TODO: wrap width in allen exp überdenken!!!
+#TO DO: will there be chinese pictures? yes!
+#TO DO: Practice Liste brauch ich noch
+#TO DO: wrap width in allen exp überdenken!!!
 
 from psychopy import visual, core, event, gui, data
 from random import shuffle
