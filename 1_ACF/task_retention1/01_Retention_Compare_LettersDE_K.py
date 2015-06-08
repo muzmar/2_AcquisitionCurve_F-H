@@ -161,7 +161,7 @@ def run_trials(items, block_id, block_size):
         rt = rt_clock.getTime()
         rt *= 1000
 
-        item.extend([str(ans[-1]), str(match_answer(ans[-1], item[6])), str(rt)])
+        item.extend([str(ans[-1]), str(match_answer(ans[-1], item[2])), str(rt)])
         outfile.write(exp_info['Subject'] + ";" + ";".join(item) + ";" + "\n")
 
         #write out answers

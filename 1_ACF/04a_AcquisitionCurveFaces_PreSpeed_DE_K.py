@@ -67,10 +67,10 @@ exp_info = {'Subject': str(45)}
 exp_info['date'] = data.getDateStr()  # add a simple timestamp
 exp_info['exp_name'] = exp_name
 
-
 # ===============================================================================
 # read stimuli
 # ===============================================================================
+
 
 def read_stims(stim_file):
     item_list = []
