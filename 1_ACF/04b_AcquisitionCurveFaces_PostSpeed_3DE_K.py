@@ -90,7 +90,7 @@ def read_stims(stim_file):
             item_list.append(line[0:8]+line[9:11])  # write entire rest of the line
     return item_list, trial_order, file_header
 
-items, trial_order, header = read_stims('%s/stimuli/Trials_AcquisitionCurve_Faces_m1.txt'%(PATH))
+items, trial_order, header = read_stims('%s/stimuli/Trials_AcquisitionCurve_Faces_m3.txt'%(PATH))
 # Edit header line for using in the output
 header[0][0:0] = ["Subject_ID"]
 header[0].extend(["ans", "correct", "rt"])
@@ -117,7 +117,7 @@ fix_cross = visual.TextStim(exp_win, pos=[0, 0], text = '+', font='Arial', color
 instructions = []
 try:
     instructions.append(Image("AC_F_1_012").buffer())
-    instructions.append(Image("Matrixen_Gesichter_02").buffer())
+    instructions.append(Image("Matrixen_Gesichter_04").buffer())
 
     correct_frame_l = visual.ImageStim(exp_win, image='{0}/instructions/{1}/Correct_Frame.png'.format(PATH, LANGUAGE),
                                        size=(205, 305), pos = (-200,0), units=u'pix')

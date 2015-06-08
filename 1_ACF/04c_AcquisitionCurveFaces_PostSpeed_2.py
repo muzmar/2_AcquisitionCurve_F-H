@@ -136,8 +136,10 @@ def run_trials(items, trial_order, practice=False):
         #prepare stimulus and draw on screen
         target_pos_px = position_dict.get(target_pos, None)
         distractor_pos_px = tuple([i*-1 for i in target_pos_px]) #by multiplying with -1 the position is mirrored on the screen center
-        target = visual.ImageStim(exp_win, image='%s/%s/stimuli/%s'%(PATH, LANGUAGE, item[8]), pos=target_pos_px, units=u'pix')
-        distractor = visual.ImageStim(exp_win, image='%s/%s/stimuli/%s'%(PATH, LANGUAGE, item[9]), pos=distractor_pos_px, units=u'pix')
+        target = visual.ImageStim(exp_win, image='%s/%s/stimuli/%s'%(PATH, LANGUAGE, item[8]),
+                                  pos=target_pos_px, units=u'pix')
+        distractor = visual.ImageStim(exp_win, image='%s/%s/stimuli/%s'%(PATH, LANGUAGE, item[9]),
+                                      pos=distractor_pos_px, units=u'pix')
 
         #pre-stimulus interval
         exp_win.flip() #flip blank screen
