@@ -60,7 +60,8 @@ exp_win = visual.Window(size=SCREEN_SIZE, monitor="testMonitor", color=(230, 230
 
 # gather experiment and subject information
 exp_name = 'AcquisitionCurve'
-exp_info = {'Subject': str(sys.argv[1])}
+# exp_info = {'Subject': str(sys.argv[1])}
+exp_info = {'Subject': str(45)}
 
 # dictionary with additional info about the experiment
 exp_info['date'] = data.getDateStr()  # add a simple timestamp
@@ -101,7 +102,7 @@ practice_items, practice_trial_order, prac_header = read_stims(
 
 # width for text wrapping
 wrap_width = SCREEN_SIZE[0]-100
-font = LANG_FONT_MAP[LANGUAGE]  # font based on language selection
+font = LANG_FONT_MAP["DE"]  # font based on language selection
 
 output_file = OUTPATH + exp_info['exp_name'] + 'DE_K' + '_%02i.txt'%(int(exp_info['Subject']))
 rt_clock = core.Clock()  # reaction time clock
@@ -115,7 +116,7 @@ fix_cross = visual.TextStim(exp_win, pos=[0, 0], text='+', font='Arial', color=-
 # load instructions and other pictures
 instructions = []
 try:
-    for i in range(10):
+    for i in range(12):
         num = str(i+1)
         image_name = "AC_F_1_0" + num
         instructions.append(Image(image_name).buffer())
@@ -190,9 +191,9 @@ def run_trials(items, trial_order, practice=False):
         # prepare stimulus and draw on screen
         target_pos_px = position_dict.get(target_pos, None)
         distractor_pos_px = tuple([i*-1 for i in target_pos_px])  # by multiplying with -1 the position is mirrored on the screen center
-        target = visual.ImageStim(exp_win, image='%s/%s/stimuli/%s'%(PATH, LANGUAGE, item[8]),
+        target = visual.ImageStim(exp_win, image='%s/stimuli/%s'%(PATH, item[8]),
                                   pos=target_pos_px, units=u'pix')
-        distractor = visual.ImageStim(exp_win, image='%s/%s/stimuli/%s'%(PATH, LANGUAGE, item[9]),
+        distractor = visual.ImageStim(exp_win, image='%s/stimuli/%s'%(PATH, item[9]),
                                       pos=distractor_pos_px, units=u'pix')
 
         # pre-stimulus interval
@@ -221,7 +222,7 @@ def run_trials(items, trial_order, practice=False):
 
         if not practice:
             item.extend([str(ans[-1]), str(match_answer(ans[-1], item[6])), str(rt)])
-            outfile.write(exp_info['Subject'] + ";" + ";".join(item) + ";" + "\n")
+            # outfile.write(exp_info['Subject'] + ";" + ";".join(item) + ";" + "\n")
 
         target.draw()
         distractor.draw()
@@ -252,59 +253,43 @@ def run_trials(items, trial_order, practice=False):
 
 # ------------------------------------------------------------------------------
 # present instructions
-for ii in range(20):
+for ii in range(9):
     instructions[ii].draw()
     exp_win.flip()
     event.waitKeys(keyList=['space'])
 
-instr_screen_1.draw()
-exp_win.flip()
-event.waitKeys(keyList=['space'])
-
-instr_screen_2.draw()
-exp_win.flip()
-event.waitKeys(keyList=['space'])
-
-
 # ------------------------------------------------------------------------------
 # run experiment
-with codecs.open(output_file, 'wb', encoding="utf-8") as outfile:
 
-    #write outfile header
-    #outfile.write('### Experiment: %s\n### Subject ID: %s\n### Date: %s\n\n' %(exp_info['exp_name'], exp_info['Subject'], exp_info['date']))
-    outfile.write('subject_id;trial;block_id;trial_id;set_id;prime;target;sex;race;target_pos;file_name_target;file_name_distr;practice;ans;correct;rt\n') #header
+# show matrix with target faces
+instructions[9].draw()
+exp_win.flip()
+core.wait(20.0)  # 20s
 
-    #practice instructions
-    practice_start_screen.draw()
-    exp_win.flip()
-    event.waitKeys(keyList=['space'])
+run_trials(practice_items, practice_trial_order, practice=True)
 
-    #show matrix with target faces
-    practice_matrix.draw()
-    exp_win.flip()
-    core.wait(20.0) #20s
+# stop Image
+instructions[10].draw()
+exp_win.flip()
+event.waitKeys(keyList=['space'])
 
-    #blank
-    exp_win.flip()
-    core.wait(0.5)
+# blank
+exp_win.flip()
+core.wait(0.5)
 
-    #capture attention
-    attention_screen.draw()
-    exp_win.flip()
-    core.wait(5.0) #5s
+# capture attention
+instructions[11].draw()
+exp_win.flip()
+core.wait(5.0)  # 5s
 
-    #run practice trials
-    #run_trials(practice_items, practice_trial_order, practice=True)
+# run practice trials
+# run_trials(practice_items, practice_trial_order, practice=True)
 
-    #practice end
-    practice_end_screen.draw()
-    exp_win.flip()
-    event.waitKeys(keyList=['space'])
 
-    #show matrix with target faces
-    target_matrix.draw()
-    exp_win.flip()
-    core.wait(45.0) #45s
+# show matrix with target faces
+instructions[-1].draw()
+exp_win.flip()
+core.wait(60.0)  # 45s
 
 exp_win.close()
 core.quit()
